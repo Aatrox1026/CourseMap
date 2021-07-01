@@ -40,24 +40,15 @@ else if($_SERVER['REQUEST_METHOD'] === 'DELETE'){
     
 }
 
-function Select($arg1, $did){
+function Select($cid){
     global $sql;
     global $table;
     $response['code'] = 200;
-    $response['value'] = '';
+    $response['value'] = [];
     $index = 0;
 
-    if($did == '') {
-        $cid = $arg1;
-    
-        $ridSet = implode(",", GetRefId($cid));
-        $query = "select * from $table where id in ($ridSet);";
-    }
-    else {
-        $fid = $arg1;
-
-        $query = "select cid from mapping_field_department_course where fid = $fid and did = $did";
-    }
+    $ridSet = implode(",", GetRefId($cid));
+    $query = "select * from $table where id in ($ridSet);";
     $result = $sql->query($query);
     
     if(!$result) {
@@ -65,7 +56,6 @@ function Select($arg1, $did){
         $response['code']=400;
         return $response;
     }
-    $response['value'] = [];
     while($row = $result->fetch_assoc()){
         $response['value'][$index] = $row;
         $index++;
@@ -112,8 +102,8 @@ function GetRefId($cid) {
     $result = $sql->query($query);
 
     $resultSet = array();
-    while($row = mysql_fetch_array($result))
-        $resultSet[] = $row;
+    while($row = mysqli_fetch_array($result))
+        $resultSet[] = $row['rid'];
 
     return $resultSet;
 }

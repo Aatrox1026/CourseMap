@@ -1,3 +1,9 @@
+connection.php 更改成自己的 userName跟passwd
+connection.php 更改成自己的 userName跟passwd
+connection.php 更改成自己的 userName跟passwd
+
+
+
 API
 取得所有課程
 	output:
@@ -56,7 +62,7 @@ course
 		./course/{fid}/{did}
 		response:
 			[{
-				"cid":{cid}
+				"id":{id}
 			}]
 	post
 

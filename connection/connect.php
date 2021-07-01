@@ -1,8 +1,8 @@
 <?php
 
-$conn_IP = "localhost:3308";
-$conn_userName = "root";
-$conn_passwd = "1234";
+$conn_IP = "localhost";
+$conn_userName = "{your userName}";
+$conn_passwd = "{your passwd}";
 $conn_db = "coursemap";
 
 $sql = new mysqli($conn_IP,$conn_userName,$conn_passwd,$conn_db);

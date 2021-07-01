@@ -10,7 +10,7 @@
     header("Access-Control-Allow-Headers: X-Requested-With, Content-Type, Origin, Cache-Control, Pragma, Authorization, Accept, Accept-Encoding");
     header("Access-Control-Allow-Methods: PUT, POST,PATCH , GET, OPTIONS, DELETE");
     // 用參數決定載入某頁並讀取需要的資料
-    $isauth = CheckAuth();
+    //$isauth = CheckAuth();
     switch($route->getParameter(1)){
         case "course":
             include('apis/course.php');

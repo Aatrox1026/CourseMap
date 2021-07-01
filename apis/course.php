@@ -3,7 +3,7 @@
 $table = "course";
 
 if($_SERVER['REQUEST_METHOD'] === 'GET'){//GET(SELECT),POST(INSERT),DELETE(DELETE),PATCH(UPDATE)
-    $result = Select($route->getParameter(2));
+    $result = Select($route->getParameter(2), $route->getParameter(3));
     
     http_response_code($result['code']);
     echo json_encode($result['value']);
@@ -41,17 +41,18 @@ else if($_SERVER['REQUEST_METHOD'] === 'DELETE'){
     
 }
 
-function Select($id){
+function Select($arg1, $arg2){
     global $sql;
     global $table;
     $response['code'] = 200;
     $response['value'] = [];
     $index = 0;
 
-    $select = "select * from $table ";
-    $where = "where ".($id == ''? "1;":" and id = $id;");
-    $query = $select.$where;
-    
+    $query = '';
+    if($arg2 == '')
+        $query = "select * from $table where ".($arg1 == ''? "1;":"id = $arg1;");
+    else 
+        $query = "select cid as id from mapping_field_department_course where fid = $arg1 and did = $arg2;";
     $result = $sql->query($query);
     
     if(!$result) {
