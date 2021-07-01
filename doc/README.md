@@ -1,6 +1,4 @@
 connection.php 更改成自己的 userName跟passwd
-connection.php 更改成自己的 userName跟passwd
-connection.php 更改成自己的 userName跟passwd
 
 
 
