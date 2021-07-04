@@ -87,6 +87,13 @@ reference
 	
 department
 	get
+		./department
+		response:
+			[{
+				"id":{id},
+				"name":{name}
+			}]
+
 		./department/{id}
 		response:
 			[{
@@ -101,7 +108,13 @@ department
 
 field
 	get
+		./field
+		response:
+			[{
+				"id":{id},
+				"name":{name}
 		./field/{id}
+		
 		response:
 			[{
 				"id":{id},

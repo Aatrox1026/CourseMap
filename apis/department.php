@@ -47,7 +47,8 @@ function Select($id){
     $response['value'] = [];
     $index = 0;
     
-    $query = "select * from $table where id = $id;";
+    
+    $query = "select * from $table where ".($id == ''? "1;":"id = $id;");
     $result = $sql->query($query);
     
     if(!$result) {
