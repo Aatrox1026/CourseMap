@@ -1,4 +1,4 @@
-connection.php 更改成自己的 userName跟passwd
+connection/connect.php 更改成自己的 userName跟passwd
 
 
 
@@ -38,16 +38,7 @@ API
 course
 	get
 		./course
-		response:
-			[{
-				"id":{id},
-				"name":{name},
-				"description":{desc},
-				"level":{level},
-				"dname":{dname}
-			}]
-
-		./course/{cid}
+		./course/{id}
 		response:
 			[{
 				"id":{id},
@@ -62,11 +53,34 @@ course
 			[{
 				"id":{id}
 			}]
+
 	post
+		require:
+			[{
+				"name":{name},
+				"description":{desc},
+				"level":{level},
+				"dname":{dname}
+			}]
+		response:
+			{insert_id}
 
 	patch
+		./course/{id}					//only send values that are modified
+		require:
+			[{
+				"name":{name},			(optional)
+				"description":{desc},	(optional)
+				"level":{level},		(optional)
+				"dname":{dname}			(optional)
+			}]
+		response:
+			update successfully
 	
 	delete
+		./course/{id}
+		response:
+			delete successfully
 
 reference
 	get
@@ -79,11 +93,31 @@ reference
 				"link":{link},
 				"description":{desc}
 			}]
-	post
 
+	post
+		./reference
+		require:
+			[{
+				"name":{name},
+				"type":{type},
+				"link":{link},
+				"description":{desc}
+			}]
+			
 	patch
+		./reference/{id}				//only send values that are modified
+		require:
+			[{
+				"name":{name},			(optional)
+				"type":{type},			(optional)
+				"link":{link},			(optional)
+				"description":{desc}	(optional)
+			}]
 	
 	delete
+		./reference/{id}
+		response:
+			delete successfully
 	
 department
 	get

@@ -12,17 +12,23 @@
     // 用參數決定載入某頁並讀取需要的資料
     //$isauth = CheckAuth();
     switch($route->getParameter(1)){
-        case "course":
-            include('apis/course.php');
-            break;
-        case "reference":
-            include('apis/reference.php');
-            break;
-        case "department":
-            include('apis/department.php');
-            break;
-        case "field":
-            include('apis/field.php');
-            break;
+    case "course":
+         include('apis/course.php');
+        break;
+    case "reference":
+        include('apis/reference.php');
+         break;
+    case "department":
+        include('apis/department.php');
+        break;
+    case "field":
+        include('apis/field.php');
+        break;
+    case "mapFDC":
+        include('apis/mapFDC.php');
+        break;
+    case "mapCR":
+        include('apis/mapCR.php');
+        break;
     }
 ?>

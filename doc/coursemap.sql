@@ -98,10 +98,10 @@ CREATE TABLE `mapping_course_reference` (
 --
 
 INSERT INTO `mapping_course_reference` (`id`, `cid`, `rid`) VALUES
-(3, 1, 1),
-(4, 1, 2),
-(5, 2, 3),
-(6, 2, 4);
+(1, 1, 1),
+(2, 1, 2),
+(3, 2, 3),
+(4, 2, 4);
 
 -- --------------------------------------------------------
 
@@ -224,7 +224,7 @@ ALTER TABLE `field`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `mapping_course_reference`
 --
 ALTER TABLE `mapping_course_reference`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `mapping_field_department_course`
