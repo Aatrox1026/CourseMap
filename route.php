@@ -24,11 +24,11 @@
     case "field":
         include('apis/field.php');
         break;
-    case "mapFDC":
-        include('apis/mapFDC.php');
+    case "mappingFDC":
+        include('apis/mappingFDC.php');
         break;
-    case "mapCR":
-        include('apis/mapCR.php');
+    case "mappingCR":
+        include('apis/mappingCR.php');
         break;
     }
 ?>

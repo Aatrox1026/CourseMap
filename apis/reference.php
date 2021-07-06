@@ -7,7 +7,6 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){//GET(SELECT),POST(INSERT),DELETE(DELET
     
     http_response_code($result['code']);
     echo json_encode($result['value']);
-    
 }
 else if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $data = (array)json_decode(trim(file_get_contents('php://input'),"[]")) ;
@@ -15,7 +14,6 @@ else if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     http_response_code($result['code']);
     echo json_encode($result['value']);
-    
 }
 else if($_SERVER['REQUEST_METHOD'] === 'PATCH'){
     $_PATCH =  (array)json_decode(trim(file_get_contents('php://input'),"[]")) ;
@@ -26,9 +24,8 @@ else if($_SERVER['REQUEST_METHOD'] === 'PATCH'){
     echo json_encode($result['value']);
 }
 else if($_SERVER['REQUEST_METHOD'] === 'DELETE'){
-    $id = $route->getParameter(2);
-    if($id != ''){
-        $result = Delete($id);
+    if($route->getParameter(2) != ''){
+        $result = Delete($route->getParameter(2));
         
         http_response_code($result['code']);
         echo json_encode($result['value']);

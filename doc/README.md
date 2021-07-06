@@ -52,9 +52,12 @@ course
 		response:
 			[{
 				"id":{id}
+				"cid":{cid}
 			}]
 
+			
 	post
+		./course
 		require:
 			[{
 				"name":{name},
@@ -64,6 +67,7 @@ course
 			}]
 		response:
 			{insert_id}
+
 
 	patch
 		./course/{id}					//only send values that are modified
@@ -76,11 +80,14 @@ course
 			}]
 		response:
 			update successfully
-	
+
+
 	delete
 		./course/{id}
 		response:
 			delete successfully
+
+
 
 reference
 	get
@@ -94,6 +101,7 @@ reference
 				"description":{desc}
 			}]
 
+
 	post
 		./reference
 		require:
@@ -103,7 +111,8 @@ reference
 				"link":{link},
 				"description":{desc}
 			}]
-			
+
+
 	patch
 		./reference/{id}				//only send values that are modified
 		require:
@@ -113,49 +122,119 @@ reference
 				"link":{link},			(optional)
 				"description":{desc}	(optional)
 			}]
-	
+
+
 	delete
 		./reference/{id}
 		response:
 			delete successfully
+
+
 	
 department
 	get
 		./department
-		response:
-			[{
-				"id":{id},
-				"name":{name}
-			}]
-
 		./department/{id}
 		response:
 			[{
 				"id":{id},
 				"name":{name}
 			}]
+
+
 	post
+
 
 	patch
 	
+
 	delete
+
+
 
 field
 	get
 		./field
-		response:
-			[{
-				"id":{id},
-				"name":{name}
 		./field/{id}
-		
 		response:
 			[{
 				"id":{id},
 				"name":{name}
 			}]
+
+
 	post
+
 
 	patch
 	
+
 	delete
+
+
+
+mappingFDC
+	get
+
+
+	post
+		./mappingFDC
+		require:
+			[{
+				"fid":{fid},
+				"did":{did},
+				"cid":{cid}
+			}]
+		response:
+			{insert_id}
+
+		
+	patch
+		./mappingFDC/{id}		//only send values that are modified
+		require:
+			[{
+				"fid":{fid},	(optional)
+				"did":{did},	(optional)
+				"cid":{cid}		(optional)
+			}]
+		response:
+			update successfully
+
+
+	delete
+		./mappingFDC/{id}
+		response:
+			delete successfully
+
+
+
+mappingCR
+	get
+
+
+	post
+		./mappingCR
+		require:
+			[{
+				"cid":{cid},
+				"rid":{rid}
+			}]
+		response:
+			{insert_id}
+
+		
+	patch
+		./mappingCR/{id}		//only send values that are modified
+		require:
+			[{
+				"cid":{cid},	(optional)
+				"rid":{rid},	(optional)
+			}]
+		response:
+			update successfully
+
+
+	delete
+		./mappingCR/{id}
+		response:
+			delete successfully

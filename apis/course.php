@@ -24,9 +24,8 @@ else if($_SERVER['REQUEST_METHOD'] === 'PATCH'){
     echo json_encode($result['value']);
 }
 else if($_SERVER['REQUEST_METHOD'] === 'DELETE'){
-    $id = $route->getParameter(2);
-    if($id != ''){
-        $result = Delete($id);
+    if($route->getParameter(2) != ''){
+        $result = Delete($route->getParameter(2));
         
         http_response_code($result['code']);
         echo json_encode($result['value']);
@@ -48,7 +47,7 @@ function Select($arg1, $arg2){
     if($arg2 == '') //query by course id
         $query = "select * from $table where ".($arg1 == ''? "1;":"id = $arg1;");
     else            //query by department id and field id
-        $query = "select cid as id from mapping_field_department_course where fid = $arg1 and did = $arg2;";
+        $query = "select id, cid from mapping_field_department_course where fid = $arg1 and did = $arg2;";
     $result = $sql->query($query);
     
     if(!$result) {
@@ -81,7 +80,8 @@ function Insert($data){
     if(!$result) {
         $response['code'] = 400;
         $response['value'] = $sql->error;
-    } else {
+    }
+    else {
         $response['code'] = 201;
         $response['value'] = $sql->insert_id;
     }
