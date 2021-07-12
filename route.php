@@ -30,5 +30,8 @@
     case "mappingCR":
         include('apis/mappingCR.php');
         break;
+    case "user":
+        include('apis/user.php');
+        break;
     }
 ?>

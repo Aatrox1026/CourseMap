@@ -49,6 +49,22 @@ CREATE TABLE Mapping_Course_Reference(
     FOREIGN KEY(rid) REFERENCES Reference(id)
 );
 
+CREATE TABLE User_Account(
+    id int AUTO_INCREMENT,
+    name char(50) NOT NULL UNIQUE,
+    passwd char(100) NOT NULL UNIQUE,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE Suggestion(
+    id int AUTO_INCREMENT,
+    uid int NOT NULL,
+    subject char(50) NOT NULL,
+    body varchar(500),
+    PRIMARY KEY(id),
+    FOREIGN KEY(uid) REFERENCES User_Account(id)
+);
+
 	新增刪除修改某系的課程
 INSERT INTO Course VALUES ("???","???","???","???"); 
 
