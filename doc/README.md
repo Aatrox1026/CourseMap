@@ -59,12 +59,12 @@ course
 	post
 		./course
 		require:
-			[{
+			{
 				"name":{name},
 				"description":{desc},
 				"level":{level},
 				"dname":{dname}
-			}]
+			}
 		response:
 			{insert_id}
 
@@ -72,12 +72,12 @@ course
 	patch
 		./course/{id}					//only send values that are modified
 		require:
-			[{
+			{
 				"name":{name},			(optional)
 				"description":{desc},	(optional)
 				"level":{level},		(optional)
 				"dname":{dname}			(optional)
-			}]
+			}
 		response:
 			update successfully
 
@@ -105,23 +105,23 @@ reference
 	post
 		./reference
 		require:
-			[{
+			{
 				"name":{name},
 				"type":{type},
 				"link":{link},
 				"description":{desc}
-			}]
+			}
 
 
 	patch
 		./reference/{id}				//only send values that are modified
 		require:
-			[{
+			{
 				"name":{name},			(optional)
 				"type":{type},			(optional)
 				"link":{link},			(optional)
 				"description":{desc}	(optional)
-			}]
+			}
 
 
 	delete
@@ -180,11 +180,11 @@ mappingFDC
 	post
 		./mappingFDC
 		require:
-			[{
+			{
 				"fid":{fid},
 				"did":{did},
 				"cid":{cid}
-			}]
+			}
 		response:
 			{insert_id}
 
@@ -192,11 +192,11 @@ mappingFDC
 	patch
 		./mappingFDC/{id}		//only send values that are modified
 		require:
-			[{
+			{
 				"fid":{fid},	(optional)
 				"did":{did},	(optional)
 				"cid":{cid}		(optional)
-			}]
+			}
 		response:
 			update successfully
 
@@ -215,10 +215,10 @@ mappingCR
 	post
 		./mappingCR
 		require:
-			[{
+			{
 				"cid":{cid},
 				"rid":{rid}
-			}]
+			}
 		response:
 			{insert_id}
 
@@ -226,10 +226,10 @@ mappingCR
 	patch
 		./mappingCR/{id}		//only send values that are modified
 		require:
-			[{
+			{
 				"cid":{cid},	(optional)
 				"rid":{rid},	(optional)
-			}]
+			}
 		response:
 			update successfully
 
