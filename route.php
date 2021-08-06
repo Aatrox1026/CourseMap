@@ -11,7 +11,10 @@
     header("Access-Control-Allow-Methods: PUT, POST,PATCH , GET, OPTIONS, DELETE");
     // 用參數決定載入某頁並讀取需要的資料
     //$isauth = CheckAuth();
-    switch($route->getParameter(1)){
+    $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+    $arg1 = filter_input(INPUT_GET, 'arg1', FILTER_SANITIZE_STRING);
+    $arg2 = filter_input(INPUT_GET, 'arg2', FILTER_SANITIZE_STRING);
+    switch($action){
     case "course":
          include('apis/course.php');
         break;

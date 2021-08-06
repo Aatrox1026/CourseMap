@@ -3,7 +3,7 @@
 $table = "department";
 
 if($_SERVER['REQUEST_METHOD'] === 'GET'){//GET(SELECT),POST(INSERT),DELETE(DELETE),PATCH(UPDATE)
-    $result = Select($route->getParameter(2));
+    $result = Select();
     
     http_response_code($result['code']);
     echo json_encode($result['value']);
@@ -40,9 +40,11 @@ else if($_SERVER['REQUEST_METHOD'] === 'DELETE'){
     }
     
 }
-function Select($id){
+function Select(){
     global $sql;
     global $table;
+    global $arg1;
+    $id = $arg1;
     $response['code'] = 200;
     $response['value'] = [];
     $index = 0;

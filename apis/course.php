@@ -3,7 +3,7 @@
 $table = "course";
 
 if($_SERVER['REQUEST_METHOD'] === 'GET'){//GET(SELECT),POST(INSERT),DELETE(DELETE),PATCH(UPDATE)
-    $result = Select($route->getParameter(2), $route->getParameter(3));
+    $result = Select();
     
     http_response_code($result['code']);
     echo json_encode($result['value']);
@@ -17,15 +17,15 @@ else if($_SERVER['REQUEST_METHOD'] === 'POST'){
 }
 else if($_SERVER['REQUEST_METHOD'] === 'PATCH'){
     $data =  (array)json_decode(trim(file_get_contents('php://input'),"[]"));
-    $id = $route->getParameter(2);
-    $result = Update($id, $data);
+    $result = Update($data);
     
     http_response_code($result['code']);
     echo json_encode($result['value']);
 }
 else if($_SERVER['REQUEST_METHOD'] === 'DELETE'){
-    if($route->getParameter(2) != ''){
-        $result = Delete($route->getParameter(2));
+    global $arg1;
+    if($arg1 != ''){
+        $result = Delete();
         
         http_response_code($result['code']);
         echo json_encode($result['value']);
@@ -36,9 +36,10 @@ else if($_SERVER['REQUEST_METHOD'] === 'DELETE'){
     }
 }
 
-function Select($arg1, $arg2){
+function Select(){
     global $sql;
     global $table;
+    global $arg1, $arg2;
     $response['code'] = 200;
     $response['value'] = [];
     $index = 0;
@@ -89,9 +90,11 @@ function Insert($data){
     return $response;
 }
 
-function Update($id, $data){
+function Update($data){
     global $sql;
     global $table;
+    global $arg1;
+    $id = $arg1;
     $response['code'] = null;
     $response['value'] = '';
 
@@ -120,9 +123,11 @@ function Update($id, $data){
     return $response;
 }
 
-function Delete($id){
+function Delete(){
     global $sql;
     global $table;
+    global $arg1;
+    $id = $arg1;
     $response['code'] = 200;
     $response['value'] = '';
     

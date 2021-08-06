@@ -14,15 +14,15 @@ case 'POST':
     break;
 case 'PATCH':
     $data =  (array)json_decode(trim(file_get_contents('php://input'),"[]"));
-    $id = $route->getParameter(2);
-    $result = Update($id, $data);
+    $result = Update($data);
     
     http_response_code($result['code']);
     echo json_encode($result['value']);
     break;
 case 'DELETE':
-    if($route->getParameter(2) != ''){
-        $result = Delete($route->getParameter(2));
+    global $arg1;
+    if($arg1 == ''){
+        $result = Delete();
         
         http_response_code($result['code']);
         echo json_encode($result['value']);
@@ -72,9 +72,11 @@ function Insert($data) {
     return $response;
 }
 
-function Update($id, $data) {
+function Update($data) {
     global $sql;
     global $table;
+    global $arg1;
+    $id = $arg1;
     $response = array();
 
     $conditions = UpdateConditions($id, $data);
@@ -112,9 +114,11 @@ function Update($id, $data) {
     return $response;
 }
 
-function Delete($id) {
+function Delete() {
     global $sql;
     global $table;
+    global $arg1;
+    $id = $arg;
     $response = array();
     
     $query = "delete from $table where id = $id;";
