@@ -11,6 +11,7 @@
     header("Access-Control-Allow-Methods: PUT, POST,PATCH , GET, OPTIONS, DELETE");
     // 用參數決定載入某頁並讀取需要的資料
     //$isauth = CheckAuth();
+    include('authorize/jwt.php');
     switch($route->getParameter(1)){
     case "course":
          include('apis/course.php');
@@ -33,5 +34,7 @@
     case "user":
         include('apis/user.php');
         break;
+    case "test":
+        include('apis/test.php');
     }
 ?>

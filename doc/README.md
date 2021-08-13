@@ -1,7 +1,3 @@
-connection/connect.php 更改成自己的 userName跟passwd
-
-
-
 API
 取得所有課程
 	output:
@@ -98,7 +94,10 @@ reference
 				"name":{name},
 				"type":{type},
 				"link":{link},
-				"description":{desc}
+				"description":{desc},
+				"language":{lang},
+				"price":{price},
+				"hours":{hours}
 			}]
 
 
@@ -109,7 +108,10 @@ reference
 				"name":{name},
 				"type":{type},
 				"link":{link},
-				"description":{desc}
+				"description":{desc},
+				"language":{lang},
+				"price":{price},
+				"hours":{hours}
 			}
 
 
@@ -121,6 +123,9 @@ reference
 				"type":{type},			(optional)
 				"link":{link},			(optional)
 				"description":{desc}	(optional)
+				"language":{lang},		(optional)
+				"price":{price},		(optional)
+				"hours":{hours}			(optional)
 			}
 
 
@@ -238,3 +243,55 @@ mappingCR
 		./mappingCR/{id}
 		response:
 			delete successfully
+
+
+
+user
+	get
+		./user/{id}
+		response:
+			[{
+				"id":{id},
+				"name":{name},
+				"passwd":{passwd},
+				"privilege":{privilege}
+			}]
+
+
+	post
+		./user/create
+		require:
+			{
+				"name":{name},
+				"passwd":{passwd},
+				"privilege":{privilege}
+			}
+		response:
+			{insert_id}
+		
+		./user/login
+		require:
+			{
+				"name":{name},
+				"passwd":{passwd}
+			}
+		response:
+			{token}
+
+
+	patch
+		./user/{id}						//only send values that are modified
+		require:
+			{
+				"name":{name},			(optional)
+				"passwd":{passwd},		(optional)
+				"privilege":{privilege}	(optional)
+			}
+		response:
+			"update successfully"
+
+
+	delete
+		./user/{id}
+		response:
+			"delete successfully"

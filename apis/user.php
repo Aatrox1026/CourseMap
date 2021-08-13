@@ -4,16 +4,20 @@ $table = "user_account";
 
 switch($_SERVER['REQUEST_METHOD']) {
 case 'GET':
-    $data =  (array)json_decode(trim(file_get_contents('php://input'),"[]"));
     $id = $route->getParameter(2);
-    $result = Select($id, $data);
+    $result = Select($id);
 
     http_response_code($result['code']);
     echo json_encode($result['value']);
     break;
 case 'POST':
     $data = (array)json_decode(trim(file_get_contents('php://input'),"[]"));
-    $result = Insert($data);
+    $action = $route->getParameter(2);
+    $result = null;
+    if($action == 'create')
+        $result = Insert($data);
+    else if($action == 'login')
+        $result = Login($data);
 
     http_response_code($result['code']);
     echo json_encode($result['value']);
@@ -43,46 +47,22 @@ default:
     echo "invalid request";
 }
 
-function Select($id, $data){
+function Select($id){
     global $sql;
     global $table;
     $response = array();
 
-    if($id == ''){  //query by name and passwd
-        $name = $data['name'];
-        $passwd = $data['passwd'];
-        $query = "select * from $table where name = $name;";
-        $result = $sql->query($query);
+    $query = "select * from $table where id = $id;";
+    $result = $sql->query($query);
 
-        if($result->num_rows == 0) {
-            $response['code'] = 404;
-            $response['value'] = "user not found";
-        }
-        else {
-            $row = $result->fetch_assoc();
-            if(Validate($passwd, $row['passwd'])) {
-                $response['code'] = 200;
-                $response['value'][] = $row;
-            }
-            else {
-                $response['code'] = 404;
-                $response['value'] = 'user not found';
-            }
-        }
+    if($result->num_rows == 0) {
+        $response['code'] = 404;
+        $response['value'] = "user not found";
     }
-    else {          //query by user id
-        $query = "select * from $table where id = $id;";
-        $result = $sql->query($query);
-
-        if($result->num_rows == 0) {
-            $response['code'] = 404;
-            $response['value'] = "user not found";
-        }
-        else {
-            $response['code'] = 200;
-            while($row = $result->fetch_assoc())
-                $response['value'][] = $row;
-        }
+    else {
+        $response['code'] = 200;
+        while($row = $result->fetch_assoc())
+            $response['value'][] = $row;
     }
     
     return $response;
@@ -104,6 +84,40 @@ function Insert($data){
     else {
         $response['code'] = 201;
         $response['value'] = $sql->insert_id;
+    }
+    return $response;
+}
+
+function Login($data) {
+    global $sql;
+    global $table;
+    $response = array();
+
+    $name = $data['name'];
+    $passwd = $data['passwd'];
+    $query = "select * from $table where name = $name;";
+    $result = $sql->query($query);
+
+    if($result == false || $result->num_rows == 0) {
+        $response['code'] = 404;
+        $response['value'] = "user not found";
+    }
+    else {
+        $row = $result->fetch_assoc();
+        if(VerifyPasswd($passwd, $row['passwd'])) {
+            $payload = array(
+                'id' => $row['id'],
+                'privilege' => $row['privilege']
+            );
+            $token = (new Jwt())->GetToken($payload);
+
+            $response['code'] = 200;
+            $response['value'] = $token;
+        }
+        else {
+            $response['code'] = 404;
+            $response['value'] = 'user not found';
+        }
     }
 
     return $response;
@@ -154,7 +168,7 @@ function Delete($id){
     else {
         if($sql->affected_rows == 0) {
             $response['code'] = 404;
-            $response['value'] = "course not found";
+            $response['value'] = "user not found";
         }
         else {
             $response['code'] = 200;
@@ -177,7 +191,7 @@ function Encrypt($data) {
     return $data;
 }
 
-function Validate($passwd, $hashed) {
+function VerifyPasswd($passwd, $hashed) {
     if(crypt($passwd, $hashed) == $hashed)
         return true;
     else

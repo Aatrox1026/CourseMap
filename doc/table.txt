@@ -3,9 +3,9 @@ CREATE TABLE Course(
     name char(50) NOT NULL UNIQUE,
     description char(100) NOT NULL,
     level char(50) NOT NULL,
-    dname char(50) NOT NULL,
+    department char(50) NOT NULL,
     PRIMARY KEY(id),
-    FOREIGN KEY(dname) REFERENCES Department(name)
+    FOREIGN KEY(department) REFERENCES Department(name)
 );
 
 CREATE TABLE Reference(
@@ -14,6 +14,9 @@ CREATE TABLE Reference(
     type char(50) NOT NULL,
     link char(100),
     description char(100),
+    language char(50),
+    price int,
+    hours int,
     PRIMARY KEY(id)
 );
 
@@ -52,7 +55,7 @@ CREATE TABLE Mapping_Course_Reference(
 CREATE TABLE User_Account(
     id int AUTO_INCREMENT,
     name char(50) NOT NULL UNIQUE,
-    passwd char(100) NOT NULL UNIQUE,
+    passwd char(200) NOT NULL,
     PRIMARY KEY(id)
 );
 
@@ -60,7 +63,7 @@ CREATE TABLE Suggestion(
     id int AUTO_INCREMENT,
     uid int NOT NULL,
     subject char(50) NOT NULL,
-    body varchar(500),
+    body text(500),
     PRIMARY KEY(id),
     FOREIGN KEY(uid) REFERENCES User_Account(id)
 );
