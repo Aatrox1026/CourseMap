@@ -45,7 +45,7 @@ function Select(){
     $response['value'] = [];
     $index = 0;
 
-    $query = "select * from $table where id in (select rid from mapping_course_reference where cid = $cid) order by price desc;";
+    $query = "select * from $table where id in (select rid from mapping_course_reference where cid = $cid) order by price asc;";
     $result = $sql->query($query);
     
     if(!$result) {
