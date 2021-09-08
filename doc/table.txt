@@ -14,6 +14,9 @@ CREATE TABLE Reference(
     type char(50) NOT NULL,
     link char(100),
     description char(100),
+    language char(50),
+    price int,
+    hours int,
     PRIMARY KEY(id)
 );
 
